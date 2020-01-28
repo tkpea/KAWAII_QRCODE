@@ -30,11 +30,13 @@
         QRコードを作る！
       </b-button>
       <div id="qr-code" v-if="qrImage">
-        <a :href="qrImage">
+        
         <img :src="qrImage"/>
-        </a>     
-      </div> 
 
+      </div> 
+           <b-button  @click="download()"  variant="success" large v-if="qrImage">
+             ダウンロード
+      </b-button> 
     </b-container>
 
   </div>
@@ -75,9 +77,16 @@ export default class App extends Vue {
       const qart = new QArt(this.qr);
       qart.make(document.getElementById('qr-code'));   
       qart.make((canvas:any) => {
- 
+        
         this.qrImage  = canvas.toDataURL("image/png")
       });       
+  }
+  download() {
+
+    let link:any = document.createElement("a");
+    link.href = this.qrImage;
+    link.download = "kawaii-qr-code.png";
+    link.click();    
   }
 
 
