@@ -6,7 +6,7 @@
           KAWAII QR CODE
         </h1>
         <p>
-          画像付きのQRコードを生成するサービスです。2
+          画像付きのQRコードを生成するサービスです。
         </p>
       </v-row>
       <b-row class="justify-content-center">
