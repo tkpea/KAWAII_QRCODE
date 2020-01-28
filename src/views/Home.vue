@@ -27,7 +27,7 @@
       </b-form-group>
  
       <b-button  @click="makeQR()"  variant="success" large>
-        QRコードを作る！!
+        QRコードを作る！
       </b-button>
       <div id="qr-code" v-if="qrImage">
       
