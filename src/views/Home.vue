@@ -13,11 +13,11 @@
         <ImageUploader v-model="qr.imagePath"/>
       </b-row>
       <b-form-group label="QRコードの内容">
-        <b-form-input v-model="qr.value" placeholder="https://***"></b-form-input>
+        <b-form-input v-model="qr.value" placeholder="https://***" type="url"></b-form-input>
       </b-form-group>
       <b-form-group label="フィルター">
         <b-form-radio-group
-          id="btn-radios"
+          id="btn-radios" 
           v-model="qr.filter"
           :options="[{ text: '白黒', value: 'threshold' },{ text: 'カラー', value: 'color' }]"
           buttons
@@ -27,9 +27,13 @@
       </b-form-group>
  
       <b-button  @click="makeQR()"  variant="success" large>
-        QRコードを作る！
+        QRコードを作る！!
       </b-button>
-      <div id="qr-code"></div> 
+      <div id="qr-code">
+      
+        <img :src="qrImage"/>
+         
+      </div> 
 
     </b-container>
 
@@ -65,22 +69,21 @@ export default class App extends Vue {
     imagePath:null,
     fillType:'scale_to_fit'
   }  
-
+  qrImage:string | null = null
   makeQR() {
        // @ts-ignore: Unreachable code error
-      const qart = new QArt({
-          value:  this.qr.value,
-          imagePath: this.qr.imagePath,
-          filter: this.qr.filter, // threshold or color
-          size: this.qr.size,
-      });
-      qart.make(document.getElementById('qr-code'));    
+      const qart = new QArt(this.qr);
+      qart.make(document.getElementById('qr-code'));   
+      qart.make((canvas) => {
+ 
+        this.qrImage  = canvas.toDataURL("image/png")
+      });       
   }
 
 }
 </script>
 <style lang="scss">
   .home {
-    padding-bottom: 60px;
+    padding-bottom: 60px;  
   }
 </style>
