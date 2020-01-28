@@ -30,9 +30,9 @@
         QRコードを作る！
       </b-button>
       <div id="qr-code" v-if="qrImage">
-      
+        <a :href="qrImage">
         <img :src="qrImage"/>
-      
+        </a>     
       </div> 
 
     </b-container>
