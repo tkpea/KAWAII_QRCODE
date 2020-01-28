@@ -6,7 +6,7 @@
           KAWAII QR CODE
         </h1>
         <p>
-          画像付きのQRコードを生成するサービスです。
+          画像付きのQRコードを生成するサービスです。2
         </p>
       </v-row>
       <b-row class="justify-content-center">
@@ -47,7 +47,8 @@ interface Qart {
   value: string,
   filter: string,
   size: number  ,
-  imagePath: string |null
+  imagePath: string |null,
+  fillType: string
 }
 
 @Component({
@@ -61,7 +62,8 @@ export default class App extends Vue {
     value:"",
     filter:"threshold",
     size: 300,
-    imagePath:null
+    imagePath:null,
+    fillType:'scale_to_fit'
   }  
 
   makeQR() {
