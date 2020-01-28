@@ -99,7 +99,6 @@ export default class ImageUploader extends Vue {
   }
   createImages(files:FileList): any {
     let reader = new FileReader();
-    console.log(files);
     for (let i = 0; i < files.length; i++) {
       let file:File = files[i];
       if (!file.type.match("image")) continue;
@@ -121,8 +120,6 @@ export default class ImageUploader extends Vue {
   }
   
   checkDrag(event:any, key:any, status:any){ 
-    console.log({event})
-    console.log({key})
     if (status && event.dataTransfer.types == "text/plain") {
         //ファイルではなく、html要素をドラッグしてきた時は処理を中止
         return false
@@ -130,7 +127,6 @@ export default class ImageUploader extends Vue {
     this.isDrag = status ? key : null
   }
   onDrop(e:any) {
-    console.log({e})
   }
   cropAreaChange(e:any) {
     this.profileCanvas = e.canvas;

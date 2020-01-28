@@ -74,7 +74,7 @@ export default class App extends Vue {
        // @ts-ignore: Unreachable code error
       const qart = new QArt(this.qr);
       qart.make(document.getElementById('qr-code'));   
-      qart.make((canvas) => {
+      qart.make((canvas:any) => {
  
         this.qrImage  = canvas.toDataURL("image/png")
       });       
