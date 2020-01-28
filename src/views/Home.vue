@@ -34,9 +34,7 @@
         <img :src="qrImage"/>
         </figure>
 
-        <b-button  @click="download()"  variant="success" large>
-        ダウンロード
-        </b-button>  
+     
       </div> 
 
     </b-container>
@@ -83,11 +81,7 @@ export default class App extends Vue {
         this.qrImage  = canvas.toDataURL("image/png")
       });       
   }
-  download() {
-    // @ts-ignore: Unreachable code error
-    let image = this.qrImage.replace('image/png', "image/octet-stream");
-    window.location.href = image; // it will save locally
-  }
+
 
 }
 </script>
