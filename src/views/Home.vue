@@ -33,8 +33,6 @@
         <figure>
         <img :src="qrImage"/>
         </figure>
-
-     
       </div> 
 
     </b-container>
