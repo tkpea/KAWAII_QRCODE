@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.bddf1d79b77b1102a78679fa9c3fd177.js"
+  "/precache-manifest.0f0ef40e29c2f172b0d3ff7bb68765b1.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "qr"});
+workbox.core.setCacheNameDetails({prefix: "KawaiiQRCODE"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
