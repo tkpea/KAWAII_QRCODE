@@ -1,18 +1,84 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <b-container class="bv-row">
+      <v-row>
+        <h1>
+          KAWAII QR CODE
+        </h1>
+        <p>
+          画像付きのQRコードを生成するサービスです。
+        </p>
+      </v-row>
+      <b-row class="justify-content-center">
+        <ImageUploader v-model="qr.imagePath"/>
+      </b-row>
+      <b-form-group label="QRコードの内容">
+        <b-form-input v-model="qr.value" placeholder="https://***"></b-form-input>
+      </b-form-group>
+      <b-form-group label="フィルター">
+        <b-form-radio-group
+          id="btn-radios"
+          v-model="qr.filter"
+          :options="[{ text: '白黒', value: 'threshold' },{ text: 'カラー', value: 'color' }]"
+          buttons
+          name="radios-btn-default"
+          button-variant="outline-info"
+        ></b-form-radio-group>
+      </b-form-group>
+ 
+      <b-button  @click="makeQR()"  variant="success" large>
+        QRコードを作る！
+      </b-button>
+      <div id="qr-code"></div> 
+
+    </b-container>
+
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { Component, Vue } from "vue-property-decorator";
+// @ts-ignore: Unreachable code error
+const Qart = require('qartjs')
+import ImageUploader from "./../components/ImageUploader.vue";
 
-export default {
-  name: 'home',
+interface Qart {
+  value: string,
+  filter: string,
+  size: number  ,
+  imagePath: string |null
+}
+
+@Component({
   components: {
-    HelloWorld
+    ImageUploader,
   }
+})
+export default class App extends Vue {
+ 
+  qr:Qart  = {
+    value:"",
+    filter:"threshold",
+    size: 300,
+    imagePath:null
+  }  
+
+  makeQR() {
+       // @ts-ignore: Unreachable code error
+      const qart = new QArt({
+          value:  this.qr.value,
+          imagePath: this.qr.imagePath,
+          filter: this.qr.filter, // threshold or color
+          size: this.qr.size,
+      });
+      qart.make(document.getElementById('qr-code'));    
+  }
+
 }
 </script>
+<style lang="scss">
+  .home {
+    padding-bottom: 60px;
+  }
+</style>
