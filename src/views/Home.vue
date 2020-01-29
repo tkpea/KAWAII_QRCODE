@@ -31,36 +31,35 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator';
 // @ts-ignore: Unreachable code error
-import { QartOption } from "./../types";
-const Qart = require("qartjs");
-import ImageUploader from "./../components/ImageUploader.vue";
-import QrImage from "./../components/QrImage.vue";
+import { QartOption } from './../types';
+import ImageUploader from './../components/ImageUploader.vue';
+import QrImage from './../components/QrImage.vue';
 
 @Component({
   components: {
     ImageUploader,
-    QrImage
-  }
+    QrImage,
+  },
 })
 export default class App extends Vue {
-  qr: QartOption = {
-    value: "",
-    filter: "threshold",
+  private qr: QartOption = {
+    value: '',
+    filter: 'threshold',
     size: 300,
     imagePath: null,
-    fillType: "scale_to_fit"
+    fillType: 'scale_to_fit',
   };
-  qrImage: string | null = null;
+  private qrImage: string | null = null;
 
-  download() {
-    let link: any = document.createElement("a");
+  private download() {
+    const link: any = document.createElement('a');
     link.href = this.qrImage;
-    link.download = "kawaii-qr-code.png";
+    link.download = 'kawaii-qr-code.png';
     link.click();
   }
-  getImagePath(event: any) {
+  private getImagePath(event: any) {
     this.qrImage = event;
   }
 }

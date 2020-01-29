@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.0f0ef40e29c2f172b0d3ff7bb68765b1.js"
+  "/precache-manifest.76554e3a2d8deeb4d630c16dbfad5eaf.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "KawaiiQRCODE"});

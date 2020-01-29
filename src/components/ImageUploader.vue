@@ -51,8 +51,8 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 
 // @ts-ignore: Unreachable code error
-import { Cropper } from "vue-advanced-cropper";
-import { CropArea } from "./../types";
+import { Cropper } from 'vue-advanced-cropper';
+import { CropArea } from './../types';
 @Component({
   components: {
     Cropper
@@ -74,56 +74,51 @@ export default class ImageUploader extends Vue {
   isDrag: boolean = false;
   isUploading: boolean = false;
 
-  onFileChange(e: any) {
+  private onFileChange(e: any) {
     let files = e.target.files || e.dataTransfer.files;
     this.createImages(files);
     this.isUploading = true;
   }
-  createImages(files: FileList): any {
-    let reader = new FileReader();
+  private createImages(files: FileList): any {
+    const reader = new FileReader();
     for (let i = 0; i < files.length; i++) {
       let file: File = files[i];
-      if (!file.type.match("image")) continue;
-      let reader = new FileReader();
-
-      reader.addEventListener("load", event => {
-        let imageFile: EventTarget | null = event.target;
+      if (!file.type.match('image')) continue;
+        reader.addEventListener('load', (event) => {
+        const imageFile: EventTarget | null = event.target;
         // @ts-ignore: Unreachable code error
         this.imageData = imageFile.result as any;
         // @ts-ignore: Unreachable code error
-        this.$bvModal.show("bv-modal");
+        this.$bvModal.show('bv-modal');
         this.isUploading = false;
       });
       reader.readAsDataURL(file);
     }
   }
 
-  checkDrag(event: any, key: any, status: any) {
-    if (status && event.dataTransfer.types == "text/plain") {
-      //ファイルではなく、html要素をドラッグしてきた時は処理を中止
+  private checkDrag(event: any, key: any, status: any) {
+    if (status && event.dataTransfer.types === 'text/plain') {
       return false;
     }
     this.isDrag = status ? key : null;
   }
-  onDrop(e: any) {}
-  cropAreaChange(e: any) {
+
+  private cropAreaChange(e: any) {
     this.profileCanvas = e.canvas;
   }
-  cropping() {
+  private cropping() {
     const canvas = this.profileCanvas;
 
-    const mime_type = "jpeg/image";
-    const data_url = canvas.toDataURL(mime_type); // canvasからデータURLスキームを取得する。
-    const base64 = "data:image/png;base64," + window.btoa(data_url); // データURLスキームからBASE64を作成する。
+    const mimeType = 'jpeg/image';
+    const dataUrl = canvas.toDataURL(mimeType); // canvasからデータURLスキームを取得する。
+    const base64 = 'data:image/png;base64,' + window.btoa(dataUrl); // データURLスキームからBASE64を作成する。
 
-    this.imageData = data_url;
+    this.imageData = dataUrl;
     // @ts-ignore: Unreachable code error
-    this.$bvModal.hide("bv-modal");
-    this.$emit("input", this.imageData);
+    this.$bvModal.hide('bv-modal');
+    this.$emit('input', this.imageData);
   }
-  alertTest() {
-    alert("ttttt");
-  }
+
 }
 </script>
  <style  lang="scss">
