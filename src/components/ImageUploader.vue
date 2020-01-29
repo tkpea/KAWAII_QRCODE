@@ -48,52 +48,51 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-
+import { Component, Vue, Prop } from 'vue-property-decorator';
 // @ts-ignore: Unreachable code error
 import { Cropper } from 'vue-advanced-cropper';
 import { CropArea } from './../types';
 @Component({
   components: {
-    Cropper
-  }
+    Cropper,
+  },
 })
 export default class ImageUploader extends Vue {
   @Prop({ default: null })
-  value: string | null = null;
+  private value: string | null = null;
 
-  file: any = null;
-  imageData: any = null;
-  cropArea: CropArea = {
+  private file: any = null;
+  private imageData: any = null;
+  private cropArea: CropArea = {
     left: 0,
     top: 0,
     width: 0,
-    height: 0
+    height: 0,
   };
-  profileCanvas: any = null;
-  isDrag: boolean = false;
-  isUploading: boolean = false;
+  private profileCanvas: any = null;
+  private isDrag: boolean = false;
+  private isUploading: boolean = false;
 
   private onFileChange(e: any) {
-    let files = e.target.files || e.dataTransfer.files;
+    const files = e.target.files || e.dataTransfer.files;
     this.createImages(files);
     this.isUploading = true;
   }
   private createImages(files: FileList): any {
     const reader = new FileReader();
-    for (let i = 0; i < files.length; i++) {
-      let file: File = files[i];
-      if (!file.type.match('image')) continue;
-        reader.addEventListener('load', (event) => {
-        const imageFile: EventTarget | null = event.target;
-        // @ts-ignore: Unreachable code error
-        this.imageData = imageFile.result as any;
-        // @ts-ignore: Unreachable code error
-        this.$bvModal.show('bv-modal');
-        this.isUploading = false;
-      });
-      reader.readAsDataURL(file);
+    const file: File = files[0];
+    if (!file.type.match('image')) {
+      throw new Error('画像データではありません');
     }
+    reader.addEventListener('load', (event) => {
+      const imageFile: EventTarget | null = event.target;
+      // @ts-ignore: Unreachable code error
+      this.imageData = imageFile.result as any;
+      // @ts-ignore: Unreachable code error
+      this.$bvModal.show('bv-modal');
+      this.isUploading = false;
+    });
+    reader.readAsDataURL(file);
   }
 
   private checkDrag(event: any, key: any, status: any) {
